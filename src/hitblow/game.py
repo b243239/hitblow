@@ -7,19 +7,20 @@
 """
 
 from .core import judge, make_secret
-
+from .greeting import show_greeting
+from .multiplay import (
+        next_player,
+        player_prompt,
+        select_player_count,
+        show_winner,
+    )
 
 def play(digits=3):
     secret = make_secret(digits)
     print(f"Hit & Blow（{digits} 桁・重複なし）")
 
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
-    from .multiplay import (
-        next_player,
-        player_prompt,
-        select_player_count,
-        show_winner,
-    )
+    show_greeting()
 
     player_count = select_player_count()
     current_player = 1
