@@ -7,13 +7,14 @@
 """
 
 from .core import judge, make_secret
-
+from .greeting import show_greeting
 
 def play(digits=3):
     secret = make_secret(digits)
     print(f"Hit & Blow（{digits} 桁・重複なし）")
 
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
+    show_greeting()
 
     tries = 0
     while True:
