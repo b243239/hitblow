@@ -8,6 +8,7 @@
 
 from .core import judge, make_secret
 from .greeting import show_greeting
+from .support import show_support_dashboard
 
 def play(digits=3):
     secret = make_secret(digits)
@@ -15,6 +16,7 @@ def play(digits=3):
 
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
     show_greeting()
+    history = []
 
     tries = 0
     while True:
@@ -24,12 +26,17 @@ def play(digits=3):
         # 例:  from .hint import hint
         #      if guess == "h":
         #          print(hint(secret)); continue
+        if guess == "s" or guess == "support":
+            from .support import show_support_dashboard  # ★ ここに import を書く
+            show_support_dashboard(history, digits)
+            continue
 
         if len(guess) != digits or not guess.isdigit():
             print(f"{digits} 桁の数字で入力してね")
             continue
         tries += 1
         hit, blow = judge(secret, guess)
+        history.append((guess, hit, blow))
         print(f"  Hit={hit}  Blow={blow}")
         if hit == digits:
 
