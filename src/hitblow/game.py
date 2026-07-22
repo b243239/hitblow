@@ -8,7 +8,15 @@
 
 from .core import judge, make_secret
 from .greeting import show_greeting
+
 from .support import show_support_dashboard
+=======
+from .multiplay import (
+        next_player,
+        player_prompt,
+        select_player_count,
+        show_winner,
+    )
 
 def play(digits=3):
     secret = make_secret(digits)
@@ -18,8 +26,12 @@ def play(digits=3):
     show_greeting()
     history = []
 
+    player_count = select_player_count()
+    current_player = 1
+
     tries = 0
     while True:
+        player_prompt(current_player)
         guess = input("予想 > ").strip()
 
         # ===== ② 入力コマンドに足す（ヒント など）: ここに書く（import もここに） =====
@@ -42,5 +54,9 @@ def play(digits=3):
 
             # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
 
+            show_winner(current_player)
+
             print(f"正解！ {tries} 回で当たり（答え {secret}）")
             break
+        
+        current_player = next_player(current_player, player_count)
